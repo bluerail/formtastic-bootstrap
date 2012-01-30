@@ -21,7 +21,7 @@ module FormtasticBootstrap
         end
 
         def input_div_wrapping(inline_or_block_errors = :inline)
-          template.content_tag(:div, :class => "input") do 
+          template.content_tag(:div, :class => "input controls") do 
             [yield, error_html(inline_or_block_errors), hint_html(inline_or_block_errors)].join("\n").html_safe  
           end
         end
@@ -36,9 +36,9 @@ module FormtasticBootstrap
           opts = options[:wrapper_html] || {}
           opts[:class] ||= []
           opts[:class] = [opts[:class].to_s] unless opts[:class].is_a?(Array)
-          opts[:class] << as
+          opts[:class] << as unless ["radio","checkbox"].include?(as.to_s)
           opts[:class] << "clearfix"
-          # opts[:class] << "input"
+          opts[:class] << "control-group"
           opts[:class] << "error" if errors?
           opts[:class] << "optional" if optional?
           opts[:class] << "required" if required?
