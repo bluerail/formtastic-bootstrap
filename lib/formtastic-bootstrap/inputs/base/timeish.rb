@@ -20,8 +20,8 @@ module FormtasticBootstrap
         
         def fragment_id(fragment)
           # TODO is this right?
-          # "#{input_html_options[:id]}_#{position(fragment)}i"
-          "#{input_html_options[:id]}[#{fragment}]"
+          # "#{input_html_options[:id]}[#{fragment}]"
+          "#{input_html_options[:id]}_#{position(fragment)}i"
         end
         
         # def fragment_input_html(fragment, klass)
@@ -30,11 +30,8 @@ module FormtasticBootstrap
         # end
         
         def fragment_input_html(fragment, klass)
-          puts "*** fragment: #{fragment}"
-          puts "*** klass: #{klass}"
           opts = input_options.merge(:prefix => fragment_prefix, :field_name => fragment_name(fragment), :default => value, :include_blank => include_blank?)
-          puts "*** opts: #{opts}"
-          template.send(:"select_#{fragment}", value, opts, input_html_options.merge(:id => fragment_id(fragment), :class => klass))
+          template.send(:"select_#{fragment}", value, opts, input_html_options.merge(:id => fragment_id(fragment), :class => klass, :name=>"#{object_name}[#{method}]"))
         end
      
       end
